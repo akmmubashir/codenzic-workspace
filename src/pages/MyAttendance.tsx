@@ -1,6 +1,5 @@
 import React from 'react';
 import { useApp } from '../lib/store';
-import { attendance } from '../lib/seed';
 import { PageHeader } from '../components/ui/Primitives';
 import { CheckInWidget } from '../components/my-attendance/CheckInWidget';
 import { AttendanceOverview } from '../components/my-attendance/AttendanceOverview';
@@ -8,8 +7,8 @@ import { AttendanceHistory } from '../components/my-attendance/AttendanceHistory
 import { AttendanceCalendar } from '../components/my-attendance/AttendanceCalendar';
 
 export function MyAttendance() {
-  const { currentUserId } = useApp();
-  const records = attendance.filter((record) => record.employeeId === currentUserId());
+  const { currentUserId, attendanceRecords } = useApp();
+  const records = attendanceRecords.filter((record) => record.employeeId === currentUserId());
   return (
     <div>
       <PageHeader title="My Attendance" subtitle="Your check-in history and working hours" />
@@ -19,8 +18,8 @@ export function MyAttendance() {
         </div>
         <AttendanceOverview records={records} />
       </div>
-      <AttendanceCalendar records={records} />
       <AttendanceHistory records={records} />
+      <AttendanceCalendar records={records} />
     </div>
   );
 }

@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { Search } from 'lucide-react';
-import { attendance, employees } from '../lib/seed';
+import { employees } from '../lib/seed';
+import { useApp } from '../lib/store';
 import { PageHeader } from '../components/ui/Primitives';
 import { AttendanceSummary } from '../components/attendance-monitor/AttendanceSummary';
 import { AttendanceTable } from '../components/attendance-monitor/AttendanceTable';
+import { LateReasonReviewList } from '../components/attendance-monitor/LateReasonReviewList';
 
 export function AttendanceMonitor() {
   const [query, setQuery] = useState('');
+  const { attendanceRecords } = useApp();
   const rows = employees
-    .map((emp) => ({ emp, rec: attendance.find((record) => record.employeeId === emp.id) }))
+    .map((emp) => ({ emp, rec: attendanceRecords.find((record) => record.employeeId === emp.id) }))
     .filter(({ emp }) => emp.name.toLowerCase().includes(query.toLowerCase()));
 
   return (
@@ -28,6 +31,7 @@ export function AttendanceMonitor() {
           </div>
         </div>
       </AttendanceTable>
+      <LateReasonReviewList />
     </div>
   );
 }

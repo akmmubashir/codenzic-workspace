@@ -4,14 +4,34 @@ import { LogIn, LogOut, Coffee, MapPin } from 'lucide-react';
 import { useApp } from '../../lib/store';
 import { Card, Button } from '../ui/Primitives';
 import { cn } from '../../lib/ui';
+import { empById } from '../../lib/seed';
+import { LateCheckInReasonDialog } from './LateCheckInReasonDialog';
 
 export function CheckInWidget({ compact = false }: { compact?: boolean }) {
-  const { session, checkIn, checkOut, toggleBreak } = useApp();
+  const { session, checkIn, checkOut, toggleBreak, attendanceRules, currentUserId } = useApp();
   const [now, setNow] = useState(new Date());
+  const [showLateReason, setShowLateReason] = useState(false);
   useEffect(() => {
     const t = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(t);
   }, []);
+
+  const [startHours, startMinutes] = attendanceRules.shiftStartTime.split(':').map(Number);
+  const lateDurationMins = Math.max(
+    0,
+    now.getHours() * 60 + now.getMinutes() - (startHours * 60 + startMinutes + attendanceRules.gracePeriodMins)
+  );
+  const employeeId = currentUserId();
+  const employee = empById(employeeId);
+  const isExempt =
+    attendanceRules.exemptEmployeeIds.includes(employeeId) ||
+    Boolean(employee && attendanceRules.exemptDepartments.includes(employee.department));
+  const requiresReason = lateDurationMins >= attendanceRules.minimumDelayForReasonMins && !isExempt;
+
+  function handleCheckIn() {
+    if (requiresReason) setShowLateReason(true);
+    else checkIn();
+  }
 
   return (
     <Card className={cn('overflow-hidden', compact ? 'p-5' : 'p-6')}>
@@ -41,7 +61,7 @@ export function CheckInWidget({ compact = false }: { compact?: boolean }) {
 
       <div className="mt-5 flex gap-2">
         {!session.checkedIn ? (
-          <Button onClick={checkIn} className="flex-1">
+          <Button onClick={handleCheckIn} className="flex-1">
             <LogIn size={16} /> Check in
           </Button>
         ) : (
@@ -56,6 +76,17 @@ export function CheckInWidget({ compact = false }: { compact?: boolean }) {
         )}
       </div>
       <p className="mt-3 text-[11px] text-muted">Location is captured only at check-in/out - never continuously.</p>
+      {showLateReason && (
+        <LateCheckInReasonDialog
+          rules={attendanceRules}
+          lateDurationMins={lateDurationMins}
+          onClose={() => setShowLateReason(false)}
+          onSubmit={(reason) => {
+            checkIn(reason);
+            setShowLateReason(false);
+          }}
+        />
+      )}
     </Card>
   );
 }

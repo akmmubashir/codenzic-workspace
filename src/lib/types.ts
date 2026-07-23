@@ -54,7 +54,52 @@ export type AttendanceStatus =
   | 'Weekend'
   | 'Missing Check-Out'
   | 'Field Work'
-  | 'Regularized';
+  | 'Regularized'
+  | 'Excused Late';
+
+export type LateReasonCategory =
+  | 'Traffic Delay'
+  | 'Public Transport Delay'
+  | 'Medical Reason'
+  | 'Personal Emergency'
+  | 'Weather Conditions'
+  | 'Client Meeting'
+  | 'Work-Related Travel'
+  | 'Technical Issue'
+  | 'Manager Approved'
+  | 'Other';
+
+export type LateReasonReviewStatus = 'Pending Review' | 'Accepted' | 'Rejected' | 'Excused' | 'No Review Required';
+
+export interface LateCheckInRecord {
+  id: string;
+  employeeId: string;
+  attendanceRecordId: string;
+  scheduledCheckInTime: string;
+  actualCheckInTime: string;
+  lateDurationMins: number;
+  reasonCategory: LateReasonCategory;
+  explanation: string;
+  attachmentName?: string;
+  submittedAt: string;
+  reviewStatus: LateReasonReviewStatus;
+  reviewedBy?: string;
+  reviewerComment?: string;
+  reviewedAt?: string;
+}
+
+export interface AttendanceRules {
+  shiftStartTime: string;
+  gracePeriodMins: number;
+  minimumDelayForReasonMins: number;
+  exemptEmployeeIds: string[];
+  exemptDepartments: string[];
+  attachmentRequiredFor: LateReasonCategory[];
+  managerApprovalRequired: boolean;
+  repeatedLateAlertThreshold: number;
+  notificationRecipients: ('Manager' | 'HR')[];
+  acceptedReasonExcusesLate: boolean;
+}
 
 export interface AttendanceRecord {
   id: string;
@@ -66,6 +111,19 @@ export interface AttendanceRecord {
   breakMins: number;
   mode: 'Office' | 'Remote' | 'Client' | 'Field';
   status: AttendanceStatus;
+}
+
+export type AttendanceUpdateRequestStatus = 'Pending' | 'Approved' | 'Rejected';
+
+export interface AttendanceUpdateRequest {
+  id: string;
+  employeeId: string;
+  attendanceRecordId: string;
+  requestedCheckIn: string;
+  requestedCheckOut: string;
+  reason: string;
+  submittedAt: string;
+  status: AttendanceUpdateRequestStatus;
 }
 
 export type LeaveType =

@@ -25,6 +25,8 @@ const daysAhead = (n: number) => {
   return iso(d);
 };
 const av = (seed: string) => `https://i.pravatar.cc/160?u=codenzic-${seed}`;
+const time = (minutes: number) =>
+  `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
 
 export const DEPARTMENTS = [
   'Management',
@@ -323,12 +325,14 @@ export const attendance: AttendanceRecord[] = employees.flatMap((e, ei) =>
     const wfh = e.workLocation === 'Remote';
     const late = (ei + di) % 7 === 0;
     const leave = e.status === 'On Leave' && di === 0;
+    const checkInMinutes = late ? 9 * 60 + 18 + ((ei * 4 + di) % 22) : 9 * 60 + 2 + ((ei * 5 + di * 3) % 12);
+    const checkOutMinutes = 18 * 60 + ((ei * 7 + di * 4) % 28);
     return {
       id: `att-${e.id}-${di}`,
       employeeId: e.id,
       date: daysAgo(di),
-      checkIn: leave ? null : late ? '09:41' : '09:12',
-      checkOut: leave ? null : di === 0 ? null : '18:24',
+      checkIn: leave ? null : time(checkInMinutes),
+      checkOut: leave ? null : di === 0 ? null : time(checkOutMinutes),
       workedHours: leave ? 0 : di === 0 ? 5.6 : 8.4,
       breakMins: leave ? 0 : 42,
       mode: wfh ? 'Remote' : 'Office',
