@@ -8,10 +8,7 @@ export default {
         bg: 'rgb(var(--cz-bg) / <alpha-value>)',
         surface: 'rgb(var(--cz-surface) / <alpha-value>)',
         border: 'rgb(var(--cz-border) / <alpha-value>)',
-        content: [
-  './index.html',
-  './src/**/*.{js,ts,jsx,tsx}'
-],
+        content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
         muted: 'rgb(var(--cz-muted) / <alpha-value>)',
         primary: 'rgb(var(--cz-primary) / <alpha-value>)',
         secondary: 'rgb(var(--cz-secondary) / <alpha-value>)',

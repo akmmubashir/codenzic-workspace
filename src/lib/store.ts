@@ -1,8 +1,14 @@
-
 import { create } from 'zustand';
 import type {
-  Role, LeaveRequest, Task, TaskStatus, EODReport, Announcement, ChatMessage, AppNotification } from
-'./types';
+  Role,
+  LeaveRequest,
+  Task,
+  TaskStatus,
+  EODReport,
+  Announcement,
+  ChatMessage,
+  AppNotification,
+} from './types';
 import { meByRole, empById } from './seed';
 import * as seed from './seed';
 
@@ -64,62 +70,62 @@ export const useApp = create<AppState>((set, get) => ({
 
   setRole: (role) => set({ role }),
   toggleTheme: () =>
-  set((s) => {
-    const theme = s.theme === 'light' ? 'dark' : 'light';
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-    return { theme };
-  }),
+    set((s) => {
+      const theme = s.theme === 'light' ? 'dark' : 'light';
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+      return { theme };
+    }),
   toggleSidebar: () => set((s) => ({ sidebarCollapsed: !s.sidebarCollapsed })),
   currentUserId: () => meByRole[get().role],
 
   checkIn: () =>
-  set(() => ({
-    session: {
-      checkedIn: true,
-      checkInAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      onBreak: false,
-      breakMins: 0,
-      mode: 'Office'
-    }
-  })),
+    set(() => ({
+      session: {
+        checkedIn: true,
+        checkInAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        onBreak: false,
+        breakMins: 0,
+        mode: 'Office',
+      },
+    })),
   checkOut: () =>
-  set(() => ({ session: { checkedIn: false, checkInAt: null, onBreak: false, breakMins: 0, mode: 'Office' } })),
+    set(() => ({ session: { checkedIn: false, checkInAt: null, onBreak: false, breakMins: 0, mode: 'Office' } })),
   toggleBreak: () => set((s) => ({ session: { ...s.session, onBreak: !s.session.onBreak } })),
 
   applyLeave: (l) =>
-  set((s) => ({
-    leaveRequests: [
-    { ...l, id: `lr-${Date.now()}`, status: 'Pending', appliedOn: new Date().toISOString().slice(0, 10) },
-    ...s.leaveRequests]
-
-  })),
+    set((s) => ({
+      leaveRequests: [
+        { ...l, id: `lr-${Date.now()}`, status: 'Pending', appliedOn: new Date().toISOString().slice(0, 10) },
+        ...s.leaveRequests,
+      ],
+    })),
   setLeaveStatus: (id, status) =>
-  set((s) => ({ leaveRequests: s.leaveRequests.map((r) => r.id === id ? { ...r, status } : r) })),
+    set((s) => ({ leaveRequests: s.leaveRequests.map((r) => (r.id === id ? { ...r, status } : r)) })),
 
   moveTask: (id, status) =>
-  set((s) => ({
-    tasks: s.tasks.map((t) =>
-    t.id === id ? { ...t, status, progress: status === 'Completed' ? 100 : t.progress } : t
-    )
-  })),
+    set((s) => ({
+      tasks: s.tasks.map((t) =>
+        t.id === id ? { ...t, status, progress: status === 'Completed' ? 100 : t.progress } : t
+      ),
+    })),
 
   submitEOD: (e) =>
-  set((s) => ({ eodReports: [{ ...e, id: `e-${Date.now()}`, status: 'Submitted' }, ...s.eodReports] })),
+    set((s) => ({ eodReports: [{ ...e, id: `e-${Date.now()}`, status: 'Submitted' }, ...s.eodReports] })),
 
   sendMessage: (channelId, text) =>
-  set((s) => ({
-    messages: [
-    ...s.messages,
-    {
-      id: `m-${Date.now()}`,
-      channelId,
-      senderId: get().currentUserId(),
-      text,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    }]
-
-  })),
-  markAllRead: () => set((s) => ({ notifications: s.notifications.map((n) => ({ ...n, read: true })) }))
+    set((s) => ({
+      messages: [
+        ...s.messages,
+        {
+          id: `m-${Date.now()}`,
+          channelId,
+          senderId: get().currentUserId(),
+          text,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        },
+      ],
+    })),
+  markAllRead: () => set((s) => ({ notifications: s.notifications.map((n) => ({ ...n, read: true })) })),
 }));
 
 export { empById };

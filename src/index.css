@@ -28,22 +28,43 @@
   --cz-secondary: 37 99 235;
   --cz-accent: 34 211 238;
 }
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
-html { overflow-x: hidden; }
+html {
+  overflow-x: hidden;
+}
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    sans-serif;
   background-color: rgb(var(--cz-bg));
   color: rgb(var(--cz-text));
   -webkit-font-smoothing: antialiased;
 }
-button, input, select, textarea { font: inherit; }
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
 /* Thin, unobtrusive scrollbars */
 * {
   scrollbar-width: thin;
   scrollbar-color: rgb(var(--cz-border)) transparent;
 }
-*::-webkit-scrollbar { width: 8px; height: 8px; }
-*::-webkit-scrollbar-thumb { background: rgb(var(--cz-border)); border-radius: 999px; }
-*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgb(var(--cz-border));
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}

@@ -1,4 +1,3 @@
-
 export type Role = 'super_admin' | 'hr_admin' | 'manager' | 'team_lead' | 'employee' | 'intern';
 
 export const ROLE_LABELS: Record<Role, string> = {
@@ -7,14 +6,22 @@ export const ROLE_LABELS: Record<Role, string> = {
   manager: 'Department Manager',
   team_lead: 'Team Lead',
   employee: 'Employee',
-  intern: 'Intern'
+  intern: 'Intern',
 };
 
 export type EmploymentType =
-'Full-time' | 'Part-time' | 'Intern' | 'Contract' | 'Consultant' | 'Freelancer' | 'Probation' | 'Temporary';
+  'Full-time' | 'Part-time' | 'Intern' | 'Contract' | 'Consultant' | 'Freelancer' | 'Probation' | 'Temporary';
 
 export type EmployeeStatus =
-'Active' | 'Onboarding' | 'Probation' | 'On Leave' | 'Notice Period' | 'Suspended' | 'Resigned' | 'Terminated' | 'Inactive';
+  | 'Active'
+  | 'Onboarding'
+  | 'Probation'
+  | 'On Leave'
+  | 'Notice Period'
+  | 'Suspended'
+  | 'Resigned'
+  | 'Terminated'
+  | 'Inactive';
 
 export interface Employee {
   id: string;
@@ -37,8 +44,17 @@ export interface Employee {
 }
 
 export type AttendanceStatus =
-'Present' | 'Absent' | 'Late' | 'Half Day' | 'On Leave' | 'Work From Home' |
-'Holiday' | 'Weekend' | 'Missing Check-Out' | 'Field Work' | 'Regularized';
+  | 'Present'
+  | 'Absent'
+  | 'Late'
+  | 'Half Day'
+  | 'On Leave'
+  | 'Work From Home'
+  | 'Holiday'
+  | 'Weekend'
+  | 'Missing Check-Out'
+  | 'Field Work'
+  | 'Regularized';
 
 export interface AttendanceRecord {
   id: string;
@@ -53,8 +69,15 @@ export interface AttendanceRecord {
 }
 
 export type LeaveType =
-'Casual Leave' | 'Sick Leave' | 'Earned Leave' | 'Paid Leave' | 'Unpaid Leave' |
-'Emergency Leave' | 'Work From Home' | 'Compensatory Leave' | 'Bereavement Leave';
+  | 'Casual Leave'
+  | 'Sick Leave'
+  | 'Earned Leave'
+  | 'Paid Leave'
+  | 'Unpaid Leave'
+  | 'Emergency Leave'
+  | 'Work From Home'
+  | 'Compensatory Leave'
+  | 'Bereavement Leave';
 
 export type LeaveStatus = 'Pending' | 'Approved' | 'Rejected' | 'Cancelled';
 
@@ -132,7 +155,7 @@ export interface ChatMessage {
 }
 
 export type AnnouncementCategory =
-'General' | 'HR' | 'Policy' | 'Holiday' | 'Event' | 'Project' | 'Urgent' | 'Birthday' | 'Work Anniversary';
+  'General' | 'HR' | 'Policy' | 'Holiday' | 'Event' | 'Project' | 'Urgent' | 'Birthday' | 'Work Anniversary';
 
 export interface Announcement {
   id: string;

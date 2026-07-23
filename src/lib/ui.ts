@@ -1,4 +1,3 @@
-
 import { twMerge } from 'tailwind-merge';
 export const cn = (...c: (string | false | null | undefined)[]) => twMerge(c.filter(Boolean).join(' '));
 
@@ -22,8 +21,7 @@ export const statusTone: Record<string, string> = {
   Rejected: 'bg-rose-50 text-rose-700 dark:bg-rose-500/10 dark:text-rose-400',
   Blocked: 'bg-rose-50 text-rose-700 dark:bg-rose-500/10 dark:text-rose-400',
   Urgent: 'bg-rose-50 text-rose-700 dark:bg-rose-500/10 dark:text-rose-400',
-  Missed: 'bg-rose-50 text-rose-700 dark:bg-rose-500/10 dark:text-rose-400'
+  Missed: 'bg-rose-50 text-rose-700 dark:bg-rose-500/10 dark:text-rose-400',
 };
 
-export const tone = (s: string) =>
-statusTone[s] || 'bg-slate-100 text-slate-600 dark:bg-white/5 dark:text-slate-300';
+export const tone = (s: string) => statusTone[s] || 'bg-slate-100 text-slate-600 dark:bg-white/5 dark:text-slate-300';

@@ -8,5 +8,10 @@ export function MyTasks() {
   const { tasks, currentUserId } = useApp();
   const mine = tasks.filter((task) => task.assigneeId === currentUserId());
   const projectName = (id: string) => projects.find((project) => project.id === id)?.name ?? '-';
-  return <div><PageHeader title="My Tasks" subtitle={`${mine.length} tasks assigned to you`} /><TaskList tasks={mine} projectName={projectName} /></div>;
+  return (
+    <div>
+      <PageHeader title="My Tasks" subtitle={`${mine.length} tasks assigned to you`} />
+      <TaskList tasks={mine} projectName={projectName} />
+    </div>
+  );
 }

@@ -11,8 +11,13 @@ export function NotFound() {
         </div>
         <p className="mt-7 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Error 404</p>
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-content">Page not found</h1>
-        <p className="mt-3 text-sm leading-6 text-muted">The page you’re looking for doesn’t exist or may have moved.</p>
-        <Link to="/" className="mt-7 inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-white transition-colors hover:bg-secondary">
+        <p className="mt-3 text-sm leading-6 text-muted">
+          The page you’re looking for doesn’t exist or may have moved.
+        </p>
+        <Link
+          to="/"
+          className="mt-7 inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-white transition-colors hover:bg-secondary"
+        >
           Back to dashboard
         </Link>
       </section>

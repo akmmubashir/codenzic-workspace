@@ -6,5 +6,11 @@ import { TeamEODList } from '../components/team-eod/TeamEODList';
 
 export function TeamEOD() {
   const { eodReports } = useApp();
-  return <div><PageHeader title="Team EOD" subtitle="Daily reports and blockers across your team" /><TeamEODSummary reports={eodReports} /><TeamEODList reports={eodReports} /></div>;
+  return (
+    <div>
+      <PageHeader title="Team EOD" subtitle="Daily reports and blockers across your team" />
+      <TeamEODSummary reports={eodReports} />
+      <TeamEODList reports={eodReports} />
+    </div>
+  );
 }

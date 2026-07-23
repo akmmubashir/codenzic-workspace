@@ -8,5 +8,20 @@ export function Announcements() {
   const { role, announcements } = useApp();
   const canPost = role === 'super_admin' || role === 'hr_admin' || role === 'manager';
   const ordered = [...announcements.filter((item) => item.pinned), ...announcements.filter((item) => !item.pinned)];
-  return <div><PageHeader title="Announcements" subtitle="Company-wide updates and news" action={canPost ? <Button><Megaphone size={16} /> New announcement</Button> : undefined} /><AnnouncementList announcements={ordered} /></div>;
+  return (
+    <div>
+      <PageHeader
+        title="Announcements"
+        subtitle="Company-wide updates and news"
+        action={
+          canPost ? (
+            <Button>
+              <Megaphone size={16} /> New announcement
+            </Button>
+          ) : undefined
+        }
+      />
+      <AnnouncementList announcements={ordered} />
+    </div>
+  );
 }

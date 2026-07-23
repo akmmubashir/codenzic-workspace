@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -34,20 +32,18 @@ export function Login() {
             Attendance, leave, projects, tasks, EOD reports, chat and announcements - unified for Codenzic Innovations.
           </p>
           <div className="mt-8 grid grid-cols-3 gap-4 text-sm">
-            {['Attendance', 'Projects & Tasks', 'Team Chat'].map((f) =>
-            <div key={f} className="rounded-lg bg-white/10 px-3 py-2 font-medium">{f}</div>
-            )}
+            {['Attendance', 'Projects & Tasks', 'Team Chat'].map((f) => (
+              <div key={f} className="rounded-lg bg-white/10 px-3 py-2 font-medium">
+                {f}
+              </div>
+            ))}
           </div>
         </div>
         <p className="text-sm text-white/60">© 2026 Codenzic Innovations</p>
       </div>
 
       <div className="flex flex-1 items-center justify-center p-6">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-sm">
-          
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-sm">
           <h2 className="text-2xl font-bold text-content">Sign in</h2>
           <p className="mt-1 text-sm text-muted">Welcome back. Use your company credentials.</p>
 
@@ -61,14 +57,16 @@ export function Login() {
                   onChange={(e) => setEmail(e.target.value)}
                   type="text"
                   required
-                  className="h-11 w-full rounded-lg border border-border bg-surface pl-9 pr-3 text-sm text-content focus:border-secondary focus:outline-none" />
-                
+                  className="h-11 w-full rounded-lg border border-border bg-surface pl-9 pr-3 text-sm text-content focus:border-secondary focus:outline-none"
+                />
               </div>
             </div>
             <div>
               <div className="mb-1.5 flex items-center justify-between">
                 <label className="text-sm font-medium text-content">Password</label>
-                <button type="button" className="text-xs font-medium text-primary hover:underline">Forgot?</button>
+                <button type="button" className="text-xs font-medium text-primary hover:underline">
+                  Forgot?
+                </button>
               </div>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" size={16} />
@@ -77,13 +75,14 @@ export function Login() {
                   onChange={(e) => setPw(e.target.value)}
                   type={show ? 'text' : 'password'}
                   required
-                  className="h-11 w-full rounded-lg border border-border bg-surface pl-9 pr-10 text-sm text-content focus:border-secondary focus:outline-none" />
-                
+                  className="h-11 w-full rounded-lg border border-border bg-surface pl-9 pr-10 text-sm text-content focus:border-secondary focus:outline-none"
+                />
+
                 <button
                   type="button"
                   onClick={() => setShow((s) => !s)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-content">
-                  
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-content"
+                >
                   {show ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
@@ -99,6 +98,6 @@ export function Login() {
           </p>
         </motion.div>
       </div>
-    </div>);
-
+    </div>
+  );
 }
