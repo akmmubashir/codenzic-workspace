@@ -1,0 +1,47 @@
+/* @import url() FONT IMPORTS MUST ALWAYS BE AT THE VERY TOP OF THIS FILE, ABOVE THE TAILWIND IMPORTS — DO NOT DELETE THIS COMMENT */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* CRITICAL: THE FOLLOWING TAILWIND IMPORTS MUST NEVER BE DELETED OR REORDERED — DO NOT DELETE THIS COMMENT */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* END TAILWIND IMPORTS — ALL OTHER CSS MUST GO BELOW THIS LINE */
+
+:root {
+  --cz-bg: 248 250 252;
+  --cz-surface: 255 255 255;
+  --cz-border: 226 232 240;
+  --cz-text: 15 23 42;
+  --cz-muted: 100 116 139;
+  --cz-primary: 30 58 138;
+  --cz-secondary: 37 99 235;
+  --cz-accent: 6 182 212;
+}
+.dark {
+  --cz-bg: 8 12 24;
+  --cz-surface: 17 24 39;
+  --cz-border: 39 47 63;
+  --cz-text: 226 232 240;
+  --cz-muted: 148 163 184;
+  --cz-primary: 59 130 246;
+  --cz-secondary: 37 99 235;
+  --cz-accent: 34 211 238;
+}
+html, body, #root {
+  height: 100%;
+}
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: rgb(var(--cz-bg));
+  color: rgb(var(--cz-text));
+  -webkit-font-smoothing: antialiased;
+}
+/* Thin, unobtrusive scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--cz-border)) transparent;
+}
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background: rgb(var(--cz-border)); border-radius: 999px; }
+*::-webkit-scrollbar-track { background: transparent; }
