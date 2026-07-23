@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { LogIn, LogOut, Coffee, MapPin } from 'lucide-react';
 import { useApp } from '../../lib/store';
@@ -16,13 +16,14 @@ export function CheckInWidget({ compact = false }: { compact?: boolean }) {
     return () => clearInterval(t);
   }, []);
 
-  const [startHours, startMinutes] = attendanceRules.shiftStartTime.split(':').map(Number);
+  const employeeId = currentUserId();
+  const employee = empById(employeeId);
+  const scheduledCheckInTime = employee?.scheduledCheckInTime ?? attendanceRules.shiftStartTime;
+  const [startHours, startMinutes] = scheduledCheckInTime.split(':').map(Number);
   const lateDurationMins = Math.max(
     0,
     now.getHours() * 60 + now.getMinutes() - (startHours * 60 + startMinutes + attendanceRules.gracePeriodMins)
   );
-  const employeeId = currentUserId();
-  const employee = empById(employeeId);
   const isExempt =
     attendanceRules.exemptEmployeeIds.includes(employeeId) ||
     Boolean(employee && attendanceRules.exemptDepartments.includes(employee.department));

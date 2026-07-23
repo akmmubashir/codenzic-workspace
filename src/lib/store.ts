@@ -13,6 +13,7 @@ import type {
   LateCheckInRecord,
   LateReasonReviewStatus,
   AttendanceUpdateRequest,
+  Employee,
 } from './types';
 import { meByRole, empById } from './seed';
 import * as seed from './seed';
@@ -42,6 +43,7 @@ interface AppState {
   lateCheckInRecords: LateCheckInRecord[];
   attendanceRules: AttendanceRules;
   attendanceUpdateRequests: AttendanceUpdateRequest[];
+  employees: Employee[];
 
   setRole: (r: Role) => void;
   toggleTheme: () => void;
@@ -66,6 +68,9 @@ interface AppState {
   submitAttendanceUpdateRequest: (
     request: Omit<AttendanceUpdateRequest, 'id' | 'submittedAt' | 'status' | 'employeeId'>
   ) => void;
+  addEmployee: (employee: Omit<Employee, 'id' | 'avatar'>) => void;
+  updateEmployee: (id: string, employee: Omit<Employee, 'id' | 'avatar'>) => void;
+  deleteEmployee: (id: string) => void;
 }
 
 export const useApp = create<AppState>((set, get) => ({
@@ -84,6 +89,7 @@ export const useApp = create<AppState>((set, get) => ({
   attendanceRecords: [...seed.attendance],
   lateCheckInRecords: [],
   attendanceUpdateRequests: [],
+  employees: [...seed.employees],
   attendanceRules: {
     shiftStartTime: '09:00',
     gracePeriodMins: 15,
@@ -111,7 +117,9 @@ export const useApp = create<AppState>((set, get) => ({
     set((state) => {
       const now = new Date();
       const actualCheckInTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
-      const [shiftHours, shiftMinutes] = state.attendanceRules.shiftStartTime.split(':').map(Number);
+      const scheduledCheckInTime =
+        empById(get().currentUserId())?.scheduledCheckInTime ?? state.attendanceRules.shiftStartTime;
+      const [shiftHours, shiftMinutes] = scheduledCheckInTime.split(':').map(Number);
       const lateStart = shiftHours * 60 + shiftMinutes + state.attendanceRules.gracePeriodMins;
       const currentMins = now.getHours() * 60 + now.getMinutes();
       const lateDurationMins = Math.max(0, currentMins - lateStart);
@@ -139,7 +147,7 @@ export const useApp = create<AppState>((set, get) => ({
               id: `late-${Date.now()}`,
               employeeId,
               attendanceRecordId: attendanceRecord.id,
-              scheduledCheckInTime: state.attendanceRules.shiftStartTime,
+              scheduledCheckInTime,
               actualCheckInTime,
               lateDurationMins,
               ...lateReason,
@@ -168,7 +176,7 @@ export const useApp = create<AppState>((set, get) => ({
                 id: `n-${Date.now()}`,
                 icon: 'Clock',
                 title: 'Late check-in reason submitted',
-                detail: `${lateReason.reasonCategory} · pending review`,
+                detail: `${lateCheckIn.reasonCategory} · pending review`,
                 time: 'Now',
                 read: false,
               },
@@ -251,6 +259,29 @@ export const useApp = create<AppState>((set, get) => ({
         ...state.attendanceUpdateRequests,
       ],
     })),
+  addEmployee: (employee) =>
+    set((state) => {
+      const largestCode = state.employees.reduce(
+        (largest, item) => Math.max(largest, Number(item.code.replace(/\D/g, '')) || 0),
+        0
+      );
+      return {
+        employees: [
+          {
+            ...employee,
+            code: `CZ-${String(largestCode + 1).padStart(3, '0')}`,
+            id: `u-${Date.now()}`,
+            avatar: `https://i.pravatar.cc/160?u=employee-${Date.now()}`,
+          },
+          ...state.employees,
+        ],
+      };
+    }),
+  updateEmployee: (id, employee) =>
+    set((state) => ({
+      employees: state.employees.map((item) => (item.id === id ? { ...employee, id, avatar: item.avatar } : item)),
+    })),
+  deleteEmployee: (id) => set((state) => ({ employees: state.employees.filter((employee) => employee.id !== id) })),
 }));
 
 export { empById };

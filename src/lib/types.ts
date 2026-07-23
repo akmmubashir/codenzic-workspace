@@ -41,6 +41,9 @@ export interface Employee {
   joiningDate: string; // ISO
   dob: string; // ISO
   skills: string[];
+  salary?: number;
+  scheduledCheckInTime?: string;
+  workingDays?: string[];
 }
 
 export type AttendanceStatus =
