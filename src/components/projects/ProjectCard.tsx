@@ -1,10 +1,20 @@
 import React from 'react';
-import { FolderKanban } from 'lucide-react';
+import { FolderKanban, Pencil, Trash2, Eye } from 'lucide-react';
 import type { Project } from '../../lib/types';
 import { empById } from '../../lib/seed';
-import { Avatar, Badge, Card } from '../ui/Primitives';
+import { Avatar, Badge, Button, Card } from '../ui/Primitives';
 
-export function ProjectCard({ project }: { project: Project }) {
+export function ProjectCard({
+  project,
+  onEdit,
+  onDelete,
+  onView,
+}: {
+  project: Project;
+  onEdit?: () => void;
+  onDelete?: () => void;
+  onView?: () => void;
+}) {
   return (
     <Card className="p-5">
       <div className="flex items-start justify-between gap-3">
@@ -38,6 +48,20 @@ export function ProjectCard({ project }: { project: Project }) {
         </div>
         <Badge label={project.priority} />
       </div>
+      {(onView || onEdit || onDelete) && (
+        <div className="mt-4 flex gap-2 border-t border-border pt-3">
+          <Button size="sm" variant="outline" onClick={onView} aria-label={`View ${project.name}`}>
+            <Eye size={14} />
+          </Button>
+          <Button size="sm" variant="outline" className="flex-1" onClick={onEdit}>
+            <Pencil size={14} />
+            Edit
+          </Button>
+          <Button size="sm" variant="outline" onClick={onDelete} aria-label={`Delete ${project.name}`}>
+            <Trash2 size={14} />
+          </Button>
+        </div>
+      )}
     </Card>
   );
 }

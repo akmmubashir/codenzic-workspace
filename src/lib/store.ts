@@ -14,6 +14,7 @@ import type {
   LateReasonReviewStatus,
   AttendanceUpdateRequest,
   Employee,
+  Project,
 } from './types';
 import { meByRole, empById } from './seed';
 import * as seed from './seed';
@@ -44,6 +45,7 @@ interface AppState {
   attendanceRules: AttendanceRules;
   attendanceUpdateRequests: AttendanceUpdateRequest[];
   employees: Employee[];
+  projects: Project[];
 
   setRole: (r: Role) => void;
   toggleTheme: () => void;
@@ -68,9 +70,12 @@ interface AppState {
   submitAttendanceUpdateRequest: (
     request: Omit<AttendanceUpdateRequest, 'id' | 'submittedAt' | 'status' | 'employeeId'>
   ) => void;
-  addEmployee: (employee: Omit<Employee, 'id' | 'avatar'>) => void;
-  updateEmployee: (id: string, employee: Omit<Employee, 'id' | 'avatar'>) => void;
+  addEmployee: (employee: Omit<Employee, 'id'>) => void;
+  updateEmployee: (id: string, employee: Omit<Employee, 'id'>) => void;
   deleteEmployee: (id: string) => void;
+  addProject: (project: Omit<Project, 'id'>) => void;
+  updateProject: (id: string, project: Omit<Project, 'id'>) => void;
+  deleteProject: (id: string) => void;
 }
 
 export const useApp = create<AppState>((set, get) => ({
@@ -90,6 +95,7 @@ export const useApp = create<AppState>((set, get) => ({
   lateCheckInRecords: [],
   attendanceUpdateRequests: [],
   employees: [...seed.employees],
+  projects: [...seed.projects],
   attendanceRules: {
     shiftStartTime: '09:00',
     gracePeriodMins: 15,
@@ -271,7 +277,7 @@ export const useApp = create<AppState>((set, get) => ({
             ...employee,
             code: `CZ-${String(largestCode + 1).padStart(3, '0')}`,
             id: `u-${Date.now()}`,
-            avatar: `https://i.pravatar.cc/160?u=employee-${Date.now()}`,
+            avatar: employee.avatar || `https://i.pravatar.cc/160?u=employee-${Date.now()}`,
           },
           ...state.employees,
         ],
@@ -279,9 +285,13 @@ export const useApp = create<AppState>((set, get) => ({
     }),
   updateEmployee: (id, employee) =>
     set((state) => ({
-      employees: state.employees.map((item) => (item.id === id ? { ...employee, id, avatar: item.avatar } : item)),
+      employees: state.employees.map((item) => (item.id === id ? { ...employee, id } : item)),
     })),
   deleteEmployee: (id) => set((state) => ({ employees: state.employees.filter((employee) => employee.id !== id) })),
+  addProject: (project) => set((state) => ({ projects: [{ ...project, id: `p-${Date.now()}` }, ...state.projects] })),
+  updateProject: (id, project) =>
+    set((state) => ({ projects: state.projects.map((item) => (item.id === id ? { ...project, id } : item)) })),
+  deleteProject: (id) => set((state) => ({ projects: state.projects.filter((project) => project.id !== id) })),
 }));
 
 export { empById };

@@ -17,7 +17,7 @@ const employmentTypes: EmploymentType[] = [
 ];
 const locations: Employee['workLocation'][] = ['Office', 'Hybrid', 'Remote'];
 const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-type Values = Omit<Employee, 'id' | 'avatar'>;
+type Values = Omit<Employee, 'id'>;
 const blank: Values = {
   code: '',
   name: '',
@@ -33,10 +33,12 @@ const blank: Values = {
   workLocation: 'Office',
   joiningDate: new Date().toISOString().slice(0, 10),
   dob: '',
+  avatar: '',
   skills: [],
   salary: undefined,
   scheduledCheckInTime: '09:00',
   workingDays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+  documents: [],
 };
 
 export function EmployeeFormDialog({
@@ -44,13 +46,15 @@ export function EmployeeFormDialog({
   managers,
   onClose,
   onSave,
+  embedded = false,
 }: {
   employee?: Employee;
   managers: Employee[];
   onClose: () => void;
   onSave: (values: Values) => void;
+  embedded?: boolean;
 }) {
-  const [values, setValues] = useState<Values>(employee ? (({ id, avatar, ...rest }) => rest)(employee) : blank);
+  const [values, setValues] = useState<Values>(employee ? (({ id, ...rest }) => rest)(employee) : blank);
   const [error, setError] = useState('');
   const set = <K extends keyof Values>(key: K, value: Values[K]) => {
     setValues((current) => ({ ...current, [key]: value }));
@@ -65,13 +69,19 @@ export function EmployeeFormDialog({
   }
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end bg-slate-950/45 sm:items-center sm:justify-center sm:p-4"
+      className={
+        embedded ? '' : 'fixed inset-0 z-50 flex items-end bg-slate-950/45 sm:items-center sm:justify-center sm:p-4'
+      }
       role="dialog"
       aria-modal="true"
     >
       <form
         onSubmit={submit}
-        className="max-h-[94vh] w-full overflow-y-auto rounded-t-2xl bg-surface p-5 shadow-xl sm:max-w-3xl sm:rounded-2xl sm:p-6"
+        className={
+          embedded
+            ? 'w-full rounded-xl border border-border bg-surface p-5 shadow-card sm:p-6'
+            : 'max-h-[94vh] w-full overflow-y-auto rounded-t-2xl bg-surface p-5 shadow-xl sm:max-w-3xl sm:rounded-2xl sm:p-6'
+        }
       >
         <div className="flex items-start justify-between">
           <div>
@@ -165,6 +175,9 @@ export function EmployeeFormDialog({
           <Field label="Joining date">
             <input type="date" value={values.joiningDate} onChange={(e) => set('joiningDate', e.target.value)} />
           </Field>
+          <Field label="Date of birth">
+            <input type="date" value={values.dob} onChange={(e) => set('dob', e.target.value)} />
+          </Field>
           <Field label="Check-in time">
             <input
               type="time"
@@ -193,6 +206,54 @@ export function EmployeeFormDialog({
                 {day}
               </label>
             ))}
+          </div>
+        </div>
+        <div className="mt-5 grid gap-4 border-t border-border pt-4 sm:grid-cols-2">
+          <div>
+            <p className="text-sm font-medium text-content">Profile photo</p>
+            <div className="mt-2 flex items-center gap-3">
+              {values.avatar ? (
+                <img src={values.avatar} alt="Profile preview" className="h-12 w-12 rounded-full object-cover" />
+              ) : (
+                <div className="grid h-12 w-12 place-items-center rounded-full bg-bg text-xs text-muted">Photo</div>
+              )}
+              <label className="cursor-pointer rounded-lg border border-border px-3 py-2 text-sm text-content hover:bg-bg">
+                Choose photo
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="sr-only"
+                  onChange={(event) => {
+                    const file = event.target.files?.[0];
+                    if (file) set('avatar', URL.createObjectURL(file));
+                  }}
+                />
+              </label>
+            </div>
+          </div>
+          <div>
+            <p className="text-sm font-medium text-content">Employee documents</p>
+            <label className="mt-2 flex cursor-pointer items-center rounded-lg border border-dashed border-border px-3 py-2 text-sm text-muted hover:bg-bg">
+              Upload documents
+              <input
+                type="file"
+                multiple
+                className="sr-only"
+                onChange={(event) =>
+                  set('documents', [
+                    ...(values.documents ?? []),
+                    ...Array.from(event.target.files ?? []).map(
+                      (file) => `${file.name}|||${URL.createObjectURL(file)}`
+                    ),
+                  ])
+                }
+              />
+            </label>
+            {values.documents?.length ? (
+              <p className="mt-2 text-xs text-muted">
+                {values.documents.map((document) => document.split('|||')[0]).join(', ')}
+              </p>
+            ) : null}
           </div>
         </div>
         {error && <p className="mt-4 rounded-lg bg-rose-50 px-3 py-2 text-sm text-rose-700">{error}</p>}

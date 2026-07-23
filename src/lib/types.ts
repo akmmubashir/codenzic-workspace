@@ -44,6 +44,7 @@ export interface Employee {
   salary?: number;
   scheduledCheckInTime?: string;
   workingDays?: string[];
+  documents?: string[];
 }
 
 export type AttendanceStatus =
@@ -169,6 +170,8 @@ export interface Project {
   startDate: string;
   dueDate: string;
   description: string;
+  documents?: string[];
+  resources?: string[];
 }
 
 export type TaskStatus = 'Backlog' | 'To Do' | 'In Progress' | 'In Review' | 'Testing' | 'Blocked' | 'Completed';

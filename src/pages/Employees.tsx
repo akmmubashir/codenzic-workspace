@@ -20,6 +20,48 @@ export function Employees() {
       (employee.name.toLowerCase().includes(q.toLowerCase()) ||
         employee.jobTitle.toLowerCase().includes(q.toLowerCase()))
   );
+  if (editing) {
+    return (
+      <div>
+        <PageHeader
+          title={editing === 'new' ? 'Add employee' : 'Edit employee'}
+          subtitle="Create or update the employee profile"
+          action={
+            <Button variant="outline" onClick={() => setEditing(null)}>
+              Back to directory
+            </Button>
+          }
+        />
+        <EmployeeFormDialog
+          embedded
+          employee={editing === 'new' ? undefined : editing}
+          managers={employees}
+          onClose={() => setEditing(null)}
+          onSave={(values) => {
+            if (editing === 'new') addEmployee(values);
+            else updateEmployee(editing.id, values);
+            setEditing(null);
+          }}
+        />
+      </div>
+    );
+  }
+  if (viewing) {
+    return (
+      <div>
+        <PageHeader
+          title="Employee profile"
+          subtitle="Employment, schedule and document details"
+          action={
+            <Button variant="outline" onClick={() => setViewing(null)}>
+              Back to directory
+            </Button>
+          }
+        />
+        <EmployeeDetailsDialog embedded employee={viewing} onClose={() => setViewing(null)} />
+      </div>
+    );
+  }
   return (
     <div>
       <PageHeader
@@ -114,19 +156,6 @@ export function Employees() {
           </Card>
         ))}
       </div>
-      {editing && (
-        <EmployeeFormDialog
-          employee={editing === 'new' ? undefined : editing}
-          managers={employees}
-          onClose={() => setEditing(null)}
-          onSave={(values) => {
-            if (editing === 'new') addEmployee(values);
-            else updateEmployee(editing.id, values);
-            setEditing(null);
-          }}
-        />
-      )}
-      {viewing && <EmployeeDetailsDialog employee={viewing} onClose={() => setViewing(null)} />}
     </div>
   );
 }
