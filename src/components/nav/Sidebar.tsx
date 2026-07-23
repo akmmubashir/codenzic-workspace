@@ -7,12 +7,13 @@ import { useApp } from '../../lib/store';
 import { visibleGroups } from './navConfig';
 import { Icon } from './Icon';
 import { cn } from '../../lib/ui';
-import { PanelLeftClose, PanelLeft, Layers } from 'lucide-react';
+import { PanelLeftClose, PanelLeft } from 'lucide-react';
 
 export function Sidebar() {
-  const { role, companyName, sidebarCollapsed, toggleSidebar } = useApp();
+  const { role, theme, sidebarCollapsed, toggleSidebar } = useApp();
   const groups = visibleGroups(role);
   const w = sidebarCollapsed ? 76 : 264;
+  const logo = sidebarCollapsed ? `logo-icon-${theme === 'dark' ? 'w' : 'b'}.png` : `logo-${theme === 'dark' ? 'w' : 'b'}.png`;
 
   return (
     <motion.aside
@@ -20,16 +21,10 @@ export function Sidebar() {
       transition={{ type: 'spring', stiffness: 400, damping: 34 }}
       className="hidden shrink-0 flex-col border-r border-border bg-surface md:flex">
       
-      <div className="flex h-16 items-center gap-3 px-4">
-        <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-primary text-white">
-          <Layers size={18} />
+      <div className="flex h-16 items-center gap-3 px-4 border-b">
+        <div className={cn('shrink-0', sidebarCollapsed ? 'h-9 w-9' : 'w-full py-2 h-full')}>
+          <img src={`/assets/${logo}`} alt="Codenzic" className="h-full w-full object-contain object-left" />
         </div>
-        {!sidebarCollapsed &&
-        <div className="min-w-0">
-            <p className="truncate text-sm font-bold text-content">{companyName}</p>
-            <p className="truncate text-xs text-muted">Codenzic Innovations</p>
-          </div>
-        }
       </div>
 
       <nav className="flex-1 space-y-5 overflow-y-auto px-3 py-2">
