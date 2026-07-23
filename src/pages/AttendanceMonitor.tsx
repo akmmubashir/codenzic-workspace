@@ -34,7 +34,8 @@ export function AttendanceMonitor() {
             
           </div>
         </div>
-        <table className="w-full text-sm">
+        <div className="overflow-x-auto">
+        <table className="min-w-[680px] w-full text-sm">
           <thead>
             <tr className="border-b border-border text-left text-xs uppercase tracking-wide text-muted">
               <th className="px-4 py-3 font-medium">Employee</th>
@@ -57,13 +58,14 @@ export function AttendanceMonitor() {
                   </div>
                 </td>
                 <td className="px-4 py-3 text-muted">{emp.department}</td>
-                <td className="px-4 py-3 text-muted">{rec?.checkIn ?? '—'}</td>
-                <td className="px-4 py-3 tabular-nums text-content">{rec?.workedHours ? `${rec.workedHours}h` : '—'}</td>
+                <td className="px-4 py-3 text-muted">{rec?.checkIn ?? '-'}</td>
+                <td className="px-4 py-3 tabular-nums text-content">{rec?.workedHours ? `${rec.workedHours}h` : '-'}</td>
                 <td className="px-4 py-3"><Badge label={rec?.status ?? 'Absent'} /></td>
               </tr>
             )}
           </tbody>
         </table>
+        </div>
       </Card>
     </div>);
 

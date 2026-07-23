@@ -22,7 +22,7 @@ export function Chat() {
   };
 
   return (
-    <div className="flex h-[calc(100vh-8rem)] overflow-hidden rounded-xl border border-border bg-surface">
+    <div className="flex h-[calc(100vh-7.25rem)] min-h-[420px] overflow-hidden rounded-xl border border-border bg-surface sm:h-[calc(100vh-8rem)]">
       <aside className="hidden w-60 shrink-0 flex-col border-r border-border sm:flex">
         <div className="p-3 text-xs font-semibold uppercase tracking-wider text-muted">Channels</div>
         <div className="flex-1 overflow-y-auto px-2">
@@ -44,9 +44,12 @@ export function Chat() {
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <div className="flex h-14 items-center gap-2 border-b border-border px-4">
+        <div className="flex h-14 items-center gap-2 border-b border-border px-3 sm:px-4">
           <Hash size={18} className="text-muted" />
-          <p className="font-semibold text-content">{activeCh.name}</p>
+          <p className="hidden font-semibold text-content sm:block">{activeCh.name}</p>
+          <select aria-label="Select channel" value={active} onChange={(e) => setActive(e.target.value)} className="min-w-0 flex-1 bg-transparent text-sm font-semibold text-content outline-none sm:hidden">
+            {channels.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+          </select>
         </div>
         <div className="flex-1 space-y-4 overflow-y-auto p-4">
           {thread.map((m) => {
@@ -55,12 +58,12 @@ export function Chat() {
             return (
               <div key={m.id} className="flex gap-3">
                 {s && <Avatar src={s.avatar} alt={s.name} size={34} />}
-                <div>
-                  <div className="flex items-baseline gap-2">
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-baseline gap-x-2">
                     <span className="text-sm font-semibold text-content">{mine ? 'You' : s?.name ?? 'Unknown'}</span>
                     <span className="text-xs text-muted">{m.time}</span>
                   </div>
-                  <p className="text-sm text-content">{m.text}</p>
+                  <p className="break-words text-sm text-content">{m.text}</p>
                 </div>
               </div>);
 

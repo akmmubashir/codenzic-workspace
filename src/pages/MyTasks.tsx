@@ -8,7 +8,7 @@ import { PageHeader, Card, Badge } from '../components/ui/Primitives';
 export function MyTasks() {
   const { tasks, currentUserId } = useApp();
   const mine = tasks.filter((t) => t.assigneeId === currentUserId());
-  const proj = (id: string) => projects.find((p) => p.id === id)?.name ?? '—';
+  const proj = (id: string) => projects.find((p) => p.id === id)?.name ?? '-';
 
   return (
     <div>

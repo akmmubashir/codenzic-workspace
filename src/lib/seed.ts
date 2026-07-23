@@ -16,7 +16,7 @@ export const DEPARTMENTS = [
 
 
 export const employees: Employee[] = [
-{ id: 'u1', code: 'CZ-001', name: 'Aarav Mehta', avatar: av('aarav'), companyEmail: 'aarav@codenzic.com', phone: '+91 98100 11111', role: 'super_admin', jobTitle: 'Founder & CEO', department: 'Management', team: 'Leadership', reportingManager: '—', employmentType: 'Full-time', status: 'Active', workLocation: 'Office', joiningDate: '2019-04-01', dob: '1988-06-12', skills: ['Strategy', 'Product', 'Leadership'] },
+{ id: 'u1', code: 'CZ-001', name: 'Aarav Mehta', avatar: av('aarav'), companyEmail: 'aarav@codenzic.com', phone: '+91 98100 11111', role: 'super_admin', jobTitle: 'Founder & CEO', department: 'Management', team: 'Leadership', reportingManager: '-', employmentType: 'Full-time', status: 'Active', workLocation: 'Office', joiningDate: '2019-04-01', dob: '1988-06-12', skills: ['Strategy', 'Product', 'Leadership'] },
 { id: 'u2', code: 'CZ-002', name: 'Priya Nair', avatar: av('priya'), companyEmail: 'priya@codenzic.com', phone: '+91 98100 22222', role: 'hr_admin', jobTitle: 'Head of People', department: 'Human Resources', team: 'HR Ops', reportingManager: 'Aarav Mehta', employmentType: 'Full-time', status: 'Active', workLocation: 'Office', joiningDate: '2020-01-15', dob: '1991-03-22', skills: ['Recruiting', 'Policy', 'Onboarding'] },
 { id: 'u3', code: 'CZ-010', name: 'Rohan Verma', avatar: av('rohan'), companyEmail: 'rohan@codenzic.com', phone: '+91 98100 33333', role: 'manager', jobTitle: 'Engineering Manager', department: 'Backend Development', team: 'Core Platform', reportingManager: 'Aarav Mehta', employmentType: 'Full-time', status: 'Active', workLocation: 'Hybrid', joiningDate: '2020-08-03', dob: '1989-11-05', skills: ['Node.js', 'Architecture', 'Mentoring'] },
 { id: 'u4', code: 'CZ-011', name: 'Sneha Kulkarni', avatar: av('sneha'), companyEmail: 'sneha@codenzic.com', phone: '+91 98100 44444', role: 'manager', jobTitle: 'Design Manager', department: 'UI/UX Design', team: 'Design Studio', reportingManager: 'Aarav Mehta', employmentType: 'Full-time', status: 'Active', workLocation: 'Office', joiningDate: '2021-02-11', dob: '1990-07-19', skills: ['Design Systems', 'Research'] },
@@ -107,14 +107,14 @@ export const messages: ChatMessage[] = [
 { id: 'm2', channelId: 'c3', senderId: 'u8', text: 'Attendance UI is ready for review 🎉', time: '09:04' },
 { id: 'm3', channelId: 'c3', senderId: 'u13', text: 'Kanban drag looks buttery smooth now.', time: '09:06' },
 { id: 'm4', channelId: 'c3', senderId: 'u5', text: 'Nice work @Aditya. Let’s demo it at EOD.', time: '09:07' },
-{ id: 'm5', channelId: 'c5', senderId: 'u7', text: 'Blocked on Aurora sandbox creds — flagged in my EOD.', time: '10:15' },
+{ id: 'm5', channelId: 'c5', senderId: 'u7', text: 'Blocked on Aurora sandbox creds - flagged in my EOD.', time: '10:15' },
 { id: 'm6', channelId: 'c5', senderId: 'u3', text: 'On it, escalating to their PM now.', time: '10:21' }];
 
 
 export const announcements: Announcement[] = [
-{ id: 'a1', title: 'Diwali holiday — office closed', body: 'The office will remain closed on the 20th and 21st for Diwali. Wishing everyone a bright and joyful festival! 🪔', category: 'Holiday', authorId: 'u2', date: daysAgo(0), pinned: true },
+{ id: 'a1', title: 'Diwali holiday - office closed', body: 'The office will remain closed on the 20th and 21st for Diwali. Wishing everyone a bright and joyful festival! 🪔', category: 'Holiday', authorId: 'u2', date: daysAgo(0), pinned: true },
 { id: 'a2', title: 'New leave policy effective next month', body: 'Earned leave now carries forward up to 12 days. Full policy is available under Documents › HR Policies.', category: 'Policy', authorId: 'u2', date: daysAgo(1), pinned: true },
-{ id: 'a3', title: 'Aurora Banking App demo — Friday 4 PM', body: 'Join the all-hands demo of the Aurora milestone. Great chance to see cross-team progress.', category: 'Project', authorId: 'u3', date: daysAgo(2), pinned: false },
+{ id: 'a3', title: 'Aurora Banking App demo - Friday 4 PM', body: 'Join the all-hands demo of the Aurora milestone. Great chance to see cross-team progress.', category: 'Project', authorId: 'u3', date: daysAgo(2), pinned: false },
 { id: 'a4', title: 'Happy work anniversary, Rohan! 🎉', body: 'Rohan Verma completes 6 years at Codenzic today. Thank you for building our engineering culture.', category: 'Work Anniversary', authorId: 'u2', date: daysAgo(3), pinned: false }];
 
 

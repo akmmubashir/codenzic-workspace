@@ -25,7 +25,7 @@ export function Leave() {
       
 
       {!canApprove &&
-      <div className="mb-6 grid grid-cols-3 gap-4">
+      <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
           <Stat label="Casual balance" value="8" hint="of 12 days" tone="text-primary" />
           <Stat label="Sick balance" value="5" hint="of 8 days" tone="text-emerald-600" />
           <Stat label="Earned balance" value="14" hint="of 18 days" tone="text-sky-600" />
@@ -53,7 +53,7 @@ export function Leave() {
                   </p>
                 </div>
                 {canApprove && l.status === 'Pending' &&
-              <div className="flex gap-2">
+              <div className="flex w-full gap-2 sm:w-auto">
                     <Button size="sm" onClick={() => setLeaveStatus(l.id, 'Approved')}><Check size={14} /> Approve</Button>
                     <Button size="sm" variant="outline" onClick={() => setLeaveStatus(l.id, 'Rejected')}><X size={14} /> Reject</Button>
                   </div>
@@ -89,7 +89,7 @@ function ApplyModal({ onClose, onSubmit }: {onClose: () => void;onSubmit: (d: an
       <motion.form
         initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }}
         onClick={(e) => e.stopPropagation()} onSubmit={submit}
-        className="w-full max-w-md rounded-2xl border border-border bg-surface p-6">
+        className="max-h-[calc(100vh-2rem)] w-full max-w-md overflow-y-auto rounded-2xl border border-border bg-surface p-4 sm:p-6">
         
         <div className="mb-4 flex items-center justify-between">
           <h3 className="text-lg font-bold text-content">Apply for leave</h3>
@@ -102,7 +102,7 @@ function ApplyModal({ onClose, onSubmit }: {onClose: () => void;onSubmit: (d: an
               {TYPES.map((t) => <option key={t}>{t}</option>)}
             </select>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div>
               <label className="mb-1.5 block text-sm font-medium text-content">From</label>
               <input required type="date" value={from} onChange={(e) => setFrom(e.target.value)} className="h-10 w-full rounded-lg border border-border bg-bg px-3 text-sm text-content focus:border-secondary focus:outline-none" />
@@ -121,7 +121,7 @@ function ApplyModal({ onClose, onSubmit }: {onClose: () => void;onSubmit: (d: an
             <textarea required value={reason} onChange={(e) => setReason(e.target.value)} rows={3} className="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm text-content focus:border-secondary focus:outline-none" />
           </div>
         </div>
-        <div className="mt-6 flex justify-end gap-2">
+        <div className="mt-6 flex flex-wrap justify-end gap-2">
           <Button type="button" variant="outline" onClick={onClose}>Cancel</Button>
           <Button type="submit">Submit request</Button>
         </div>

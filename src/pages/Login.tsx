@@ -31,7 +31,7 @@ export function Login() {
         <div>
           <h1 className="text-4xl font-bold leading-tight">One workspace for your entire team.</h1>
           <p className="mt-4 max-w-md text-white/80">
-            Attendance, leave, projects, tasks, EOD reports, chat and announcements — unified for Codenzic Innovations.
+            Attendance, leave, projects, tasks, EOD reports, chat and announcements - unified for Codenzic Innovations.
           </p>
           <div className="mt-8 grid grid-cols-3 gap-4 text-sm">
             {['Attendance', 'Projects & Tasks', 'Team Chat'].map((f) =>

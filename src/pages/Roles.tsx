@@ -53,7 +53,7 @@ export function Roles() {
           </tbody>
         </table>
       </Card>
-      <p className="mt-3 text-xs text-muted">Permissions must also be enforced in the backend — never trust frontend checks alone.</p>
+      <p className="mt-3 text-xs text-muted">Permissions must also be enforced in the backend - never trust frontend checks alone.</p>
     </div>);
 
 }

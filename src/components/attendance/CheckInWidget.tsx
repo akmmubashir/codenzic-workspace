@@ -58,7 +58,7 @@ export function CheckInWidget({ compact = false }: {compact?: boolean;}) {
         }
       </div>
       <p className="mt-3 text-[11px] text-muted">
-        Location is captured only at check-in/out — never continuously.
+        Location is captured only at check-in/out - never continuously.
       </p>
     </Card>);
 

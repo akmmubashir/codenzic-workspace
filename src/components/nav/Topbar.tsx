@@ -20,8 +20,8 @@ export function Topbar() {
   const unread = notifications.filter((n) => !n.read).length;
 
   return (
-    <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-border bg-surface/90 px-4 backdrop-blur">
-      <div className="relative flex-1 max-w-md">
+    <header className="sticky top-0 z-20 flex h-14 items-center justify-end gap-1.5 border-b border-border bg-surface/90 px-3 backdrop-blur sm:h-16 sm:justify-start sm:gap-3 sm:px-4">
+      <div className="relative hidden min-w-0 flex-1 max-w-md sm:block">
         <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted" size={16} />
         <input
           placeholder="Search employees, projects, tasks…"
@@ -30,14 +30,14 @@ export function Topbar() {
       </div>
 
       {/* Role switcher (demo control) */}
-      <div className="relative">
+      <div className="relative shrink-0 ms-auto">
         <button
           onClick={() => {setOpenRole((v) => !v);setOpenNotif(false);}}
-          className="flex h-9 items-center gap-2 rounded-lg border border-border px-3 text-sm font-medium text-content hover:bg-black/5 dark:hover:bg-white/5">
+          className="flex h-9 items-center gap-1.5 rounded-lg border border-border px-2.5 text-sm font-medium text-content hover:bg-black/5 dark:hover:bg-white/5 sm:gap-2 sm:px-3">
           
           <UserCog size={16} className="text-primary" />
-          <span className="hidden sm:inline">{ROLE_LABELS[role]}</span>
-          <ChevronDown size={14} className="text-muted" />
+          <span className="hidden md:inline">{ROLE_LABELS[role]}</span>
+          <ChevronDown size={14} className="hidden text-muted sm:block" />
         </button>
         <AnimatePresence>
           {openRole &&
@@ -64,12 +64,12 @@ export function Topbar() {
       <button
         onClick={toggleTheme}
         aria-label="Toggle theme"
-        className="grid h-9 w-9 place-items-center rounded-lg border border-border text-muted hover:text-content">
+        className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-border text-muted hover:text-content">
         
         {theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}
       </button>
 
-      <div className="relative">
+      <div className="relative shrink-0">
         <button
           onClick={() => {setOpenNotif((v) => !v);setOpenRole(false);}}
           aria-label="Notifications"
@@ -110,7 +110,7 @@ export function Topbar() {
         </AnimatePresence>
       </div>
 
-      <div className="flex items-center gap-2 pl-1">
+      <div className="flex shrink-0 items-center gap-2 pl-1">
         <Avatar src={me.avatar} alt={me.name} size={34} />
         <div className="hidden leading-tight sm:block">
           <p className="text-sm font-semibold text-content">{me.name}</p>
@@ -130,7 +130,7 @@ function Dropdown({ children, onClose, width = 220 }: {children: React.ReactNode
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 6, scale: 0.98 }}
         transition={{ duration: 0.14 }}
-        style={{ width }}
+        style={{ width: `min(${width}px, calc(100vw - 1.5rem))` }}
         className="absolute right-0 top-11 z-20 overflow-hidden rounded-xl border border-border bg-surface py-1 shadow-lg">
         
         {children}

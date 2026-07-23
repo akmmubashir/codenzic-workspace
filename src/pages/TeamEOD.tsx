@@ -10,7 +10,7 @@ export function TeamEOD() {
   return (
     <div>
       <PageHeader title="Team EOD" subtitle="Daily reports and blockers across your team" />
-      <div className="mb-6 grid grid-cols-3 gap-4">
+      <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
         <Stat label="Submitted" value={eodReports.length} tone="text-emerald-600" />
         <Stat label="Pending" value={4} tone="text-amber-600" />
         <Stat label="Open blockers" value={eodReports.filter((e) => e.blockers).length} tone="text-rose-600" />
@@ -23,7 +23,7 @@ export function TeamEOD() {
               <div className="flex items-center gap-3">
                 <Avatar src={emp.avatar} alt={emp.name} />
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <p className="font-medium text-content">{emp.name}</p>
                     <Badge label={e.status} />
                   </div>
