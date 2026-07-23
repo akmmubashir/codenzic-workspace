@@ -1,0 +1,10 @@
+import { motion } from 'framer-motion';
+import { empById } from '../../lib/seed';
+import type { Task, TaskStatus } from '../../lib/types';
+import { cn } from '../../lib/ui';
+import { Avatar, Badge } from '../ui/Primitives';
+
+type Props = { status: TaskStatus; tasks: Task[]; draggingId: string | null; activeDrop: TaskStatus | null; onDragStart: (id: string) => void; onDragEnd: () => void; onDragOver: () => void; onDragLeave: () => void; onDrop: () => void };
+export function BoardColumn({ status, tasks, draggingId, activeDrop, onDragStart, onDragEnd, onDragOver, onDragLeave, onDrop }: Props) {
+  return <div onDragOver={(event) => { event.preventDefault(); onDragOver(); }} onDragLeave={onDragLeave} onDrop={onDrop} className={cn('w-72 shrink-0 rounded-xl border border-border bg-surface/60 p-3 transition-colors', activeDrop === status && 'border-secondary bg-primary/5')}><div className="mb-3 flex items-center justify-between px-1"><h3 className="text-sm font-semibold text-content">{status}</h3><span className="rounded-full bg-black/5 px-2 py-0.5 text-xs font-medium text-muted dark:bg-white/10">{tasks.length}</span></div><div className="space-y-2">{tasks.map((task) => { const assignee = empById(task.assigneeId); return <motion.div layout key={task.id} draggable onDragStart={() => onDragStart(task.id)} onDragEnd={onDragEnd} className={cn('cursor-grab rounded-lg border border-border bg-surface p-3 shadow-card active:cursor-grabbing', draggingId === task.id && 'opacity-60')}><p className="text-sm font-medium text-content">{task.title}</p><div className="mt-2 flex flex-wrap gap-1">{task.labels.map((label) => <span key={label} className="rounded bg-primary/10 px-1.5 py-0.5 text-[10px] font-medium text-primary">{label}</span>)}</div><div className="mt-3 flex items-center justify-between"><Badge label={task.priority} />{assignee && <Avatar src={assignee.avatar} alt={assignee.name} size={24} />}</div></motion.div>; })}{tasks.length === 0 && <p className="px-1 py-4 text-center text-xs text-muted">No tasks</p>}</div></div>;
+}
