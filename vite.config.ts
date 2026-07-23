@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['assets/logo-icon-b.png', 'assets/logo-icon-w.png'],
+      includeAssets: ['assets/pwa-icon.png'],
       manifest: {
         name: 'Codenzic Workspace',
         short_name: 'Codenzic',
@@ -18,8 +18,8 @@ export default defineConfig({
         background_color: '#f8fafc',
         theme_color: '#1e3a8a',
         icons: [
-          { src: 'assets/pwa-icon-b-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
-          { src: 'assets/pwa-icon-b-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' }
+          { src: 'assets/pwa-icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+          { src: 'assets/pwa-icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' }
         ]
       }
     })
