@@ -19,6 +19,7 @@ import { Announcements } from './pages/Announcements';
 import { Reports } from './pages/Reports';
 import { Roles } from './pages/Roles';
 import { Settings } from './pages/Settings';
+import { NotFound } from './pages/NotFound';
 
 export function App() {
   return (
@@ -42,6 +43,7 @@ export function App() {
           <Route path="/roles" element={<Roles />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>);
 
