@@ -8,7 +8,7 @@ import {
 import { useApp } from '../lib/store';
 import { empById, employees, attendance, projects } from '../lib/seed';
 import { Card, Stat, PageHeader, Badge, Avatar, Button } from '../components/ui/Primitives';
-import { CheckInWidget } from '../components/attendance/CheckInWidget';
+import { CheckInWidget } from '../components/my-attendance/CheckInWidget';
 import { ROLE_LABELS } from '../lib/types';
 
 const stagger = { animate: { transition: { staggerChildren: 0.05 } } };

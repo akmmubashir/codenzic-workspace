@@ -4,7 +4,7 @@ import React from 'react';
 import { useApp } from '../lib/store';
 import { attendance } from '../lib/seed';
 import { PageHeader, Card, Badge, Stat } from '../components/ui/Primitives';
-import { CheckInWidget } from '../components/attendance/CheckInWidget';
+import { CheckInWidget } from '../components/my-attendance/CheckInWidget';
 
 export function MyAttendance() {
   const { currentUserId } = useApp();
