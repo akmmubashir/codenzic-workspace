@@ -18,7 +18,7 @@ export default defineConfig({
         background_color: '#f8fafc',
         theme_color: '#1e3a8a',
         icons: [
-          { src: 'assets/logo-icon-b.png', sizes: '310x316', type: 'image/png', purpose: 'any' },
+          { src: 'assets/pwa-icon-b-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
           { src: 'assets/pwa-icon-b-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' }
         ]
       }
