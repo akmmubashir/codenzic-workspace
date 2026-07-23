@@ -21,6 +21,7 @@ export function Topbar() {
 
   return (
     <header className="sticky top-0 z-20 flex h-14 items-center justify-end gap-1.5 border-b border-border bg-surface/90 px-3 backdrop-blur sm:h-16 sm:justify-start sm:gap-3 sm:px-4">
+      <img src={`/assets/logo-icon-${theme === 'dark' ? 'w' : 'b'}.png`} alt="Codenzic" className="mr-auto h-8 w-8 shrink-0 object-contain sm:hidden" />
       <div className="relative hidden min-w-0 flex-1 max-w-md sm:block">
         <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted" size={16} />
         <input

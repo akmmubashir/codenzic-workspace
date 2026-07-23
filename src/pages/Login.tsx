@@ -48,13 +48,6 @@ export function Login() {
           animate={{ opacity: 1, y: 0 }}
           className="w-full max-w-sm">
           
-          <div className="mb-8 lg:hidden">
-            <div className="mb-3 grid h-11 w-11 place-items-center rounded-xl bg-primary text-white">
-              <Layers size={22} />
-            </div>
-            <p className="text-lg font-bold text-content">Codenzic Workspace</p>
-          </div>
-
           <h2 className="text-2xl font-bold text-content">Sign in</h2>
           <p className="mt-1 text-sm text-muted">Welcome back. Use your company credentials.</p>
 
